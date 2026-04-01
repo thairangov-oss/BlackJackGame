@@ -1,19 +1,12 @@
-using System;
+﻿using System;
 
-namespace BlackjackGame
+namespace BlackJackGame
 {
-    public class BlackjackGame
+    public class BlackJackGame
     {
         public Deck Deck { get; private set; }
         public Player Player { get; set; }
         public Hand Dealer { get; private set; }
-
-        public BlackjackGame()
-        {
-            Deck = new Deck();
-            Player = new Player();
-            Dealer = new Hand();
-        }
 
         public void Start()
         {
@@ -40,7 +33,6 @@ namespace BlackjackGame
             {
                 Dealer.AddCard(Deck.Deal());
             }
-
             Console.WriteLine($"Dealer: {string.Join(", ", Dealer.Cards)} (Value: {Dealer.GetValue()})");
         }
 
@@ -68,5 +60,4 @@ namespace BlackjackGame
         }
     }
 }
-
 
