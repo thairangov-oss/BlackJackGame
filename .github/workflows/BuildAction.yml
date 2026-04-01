@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
-    branches: [main]  
+    branches: [main]
 
 jobs:
   build:
@@ -23,19 +23,17 @@ jobs:
       # Step 3: Restore NuGet packages
       - name: Restore dependencies
         run: dotnet restore BlackJackGame.csproj
-        # Runs: dotnet restore BlackJackGame.csproj
         # Meaning: downloads and restores all NuGet packages your project depends on
 
       # Step 4: Build the project in Release mode
       - name: Build project
         run: dotnet build BlackJackGame.csproj --configuration Release --no-restore
-        # Runs: dotnet build BlackJackGame.csproj --configuration Release --no-restore
         # Meaning: compiles your C# project in Release mode without re-restoring packages
 
       # Step 5: Print a success message
       - name: Success message
         run: echo "BlackJackGame built successfully!"
-        # Runs: echo "BlackJackGame built successfully!"
         # Meaning: prints a confirmation message to the workflow logs
+
 
 
