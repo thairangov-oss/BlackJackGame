@@ -114,10 +114,7 @@ namespace BlackjackGame
             Console.WriteLine($"Bet placed: {Bet}. Remaining balance: {Balance}");
         }
 
-        public void Hit(Deck deck)
-        {
-            Hand.AddCard(deck.Deal());
-        }
+        public void Hit(Deck deck) => Hand.AddCard(deck.Deal());
 
         public void Double(Deck deck)
         {
@@ -213,10 +210,7 @@ namespace BlackjackGame
         {
             Console.WriteLine("Verifying deck contents...");
             Deck verifyDeck = new Deck();
-
-
             Console.WriteLine("Cards have been verified");
-
             Console.WriteLine($"Total cards: {verifyDeck.Cards.Count}\n");
 
             BlackjackGame game = new BlackjackGame();
@@ -281,6 +275,8 @@ namespace BlackjackGame
         }
     }
 }
+
+
 
 
 
