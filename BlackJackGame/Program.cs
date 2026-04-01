@@ -237,6 +237,8 @@ namespace BlackjackGame
 
             while (true)
             {
+                Console.Clear(); 
+
                 if (game.Player.Balance <= 0)
                 {
                     Console.WriteLine("\nYou are bust! Retry (R) or press any key to close.");
@@ -291,6 +293,11 @@ namespace BlackjackGame
 
                 game.DealerTurn();
                 game.CompareHands();
+
+
+                Console.WriteLine("\nDo you want to play again? (Y/N)");
+                string replayChoice = (Console.ReadLine() ?? string.Empty).ToUpper();
+                if (replayChoice != "Y") break;
             }
         }
     }
