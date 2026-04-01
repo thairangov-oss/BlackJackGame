@@ -71,7 +71,7 @@ namespace BlackjackGame
 
         public void AddCard(Card card) => Cards.Add(card);
 
-        public int GetValue()
+        public int CalculateScore()
         {
             int total = 0;
             int aceCount = 0;
