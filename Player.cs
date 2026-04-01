@@ -1,6 +1,6 @@
-using System;
+﻿using System;
 
-namespace BlackjackGame
+namespace BlackJackGame
 {
     public class Player
     {
@@ -24,10 +24,7 @@ namespace BlackjackGame
             Console.WriteLine($"Bet placed: {Bet}. Remaining balance: {Balance}");
         }
 
-        public void Hit(Deck deck)
-        {
-            Hand.AddCard(deck.Deal());
-        }
+        public void Hit(Deck deck) => Hand.AddCard(deck.Deal());
 
         public void Double(Deck deck)
         {
@@ -51,5 +48,4 @@ namespace BlackjackGame
         }
     }
 }
-
 
