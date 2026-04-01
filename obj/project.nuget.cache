@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "GV7Dlf/fGLI=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\thair\\Desktop\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\thair\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.22.1\\microsoft.visualstudio.azure.containers.tools.targets.1.22.1.nupkg.sha512"
+  ],
+  "logs": []
+}
