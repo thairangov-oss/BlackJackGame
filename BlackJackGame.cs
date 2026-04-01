@@ -1,12 +1,20 @@
-﻿using System;
+using System;
 
-namespace BlackJackGame
+namespace BlackjackGame
 {
-    public class BlackJackGame
+    public class BlackjackGame
     {
         public Deck Deck { get; private set; }
         public Player Player { get; set; }
         public Hand Dealer { get; private set; }
+
+        // ✅ Constructor initializes all non-nullable properties
+        public BlackjackGame()
+        {
+            Deck = new Deck();
+            Player = new Player();
+            Dealer = new Hand();
+        }
 
         public void Start()
         {
@@ -33,6 +41,7 @@ namespace BlackJackGame
             {
                 Dealer.AddCard(Deck.Deal());
             }
+
             Console.WriteLine($"Dealer: {string.Join(", ", Dealer.Cards)} (Value: {Dealer.GetValue()})");
         }
 
@@ -60,3 +69,4 @@ namespace BlackJackGame
         }
     }
 }
+
