@@ -1,77 +1,77 @@
-public class Program
-{
-    public static void Main()
+    public class Program
     {
-        // ✅ Verification step: print all 52 cards
-        Console.WriteLine("Verifying deck contents...");
-        Deck verifyDeck = new Deck();
-        foreach (var card in verifyDeck.Cards)
+        public static void Main()
         {
-            Console.WriteLine(card);
-        }
-        Console.WriteLine($"Total cards: {verifyDeck.Cards.Count}\n");
+            Console.WriteLine("Verifying deck contents...");
+            Deck verifyDeck = new Deck();
+            
+           
+            Console.WriteLine("Cards have been verified");
+            
+            Console.WriteLine($"Total cards: {verifyDeck.Cards.Count}\n");
 
-        BlackjackGame game = new BlackjackGame();
-        game.Player = new Player();
+            BlackjackGame game = new BlackjackGame();
 
-        while (true)
-        {
-            if (game.Player.Balance <= 0)
+            while (true)
             {
-                Console.WriteLine("\nYou are bust! Retry (R) or press any key to close.");
-                string choice = (Console.ReadLine() ?? string.Empty).ToUpper(); // ✅ fixed
-                if (choice == "R")
+                if (game.Player.Balance <= 0)
                 {
-                    game.Player.Balance = 500;
-                    Console.WriteLine("Balance reset to 500.");
+                    Console.WriteLine("\nYou are bust! Retry (R) or press any key to close.");
+                    string choice = (Console.ReadLine() ?? string.Empty).ToUpper();
+                    if (choice == "R")
+                    {
+                        game.Player.Balance = 500;
+                        Console.WriteLine("Balance reset to 500.");
+                    }
+                    else return;
                 }
-                else return;
-            }
 
-            game.Start();
+                game.Start();
 
-            bool playerTurn = true;
-            while (playerTurn)
-            {
-                Console.WriteLine("\nChoose action: (H)it, (S)tand, (D)ouble, (I)nsurance");
-                string choice = (Console.ReadLine() ?? string.Empty).ToUpper(); // ✅ fixed
-
-                switch (choice)
+                bool playerTurn = true;
+                while (playerTurn)
                 {
-                    case "H":
-                        game.Player.Hit(game.Deck);
-                        Console.WriteLine($"Player: {string.Join(", ", game.Player.Hand.Cards)} (Value: {game.Player.Hand.GetValue()})");
-                        if (game.Player.Hand.GetValue() > 21)
-                        {
-                            Console.WriteLine("Player busts!");
+                    Console.WriteLine("\nChoose action: (H)it, (S)tand, (D)ouble, (I)nsurance");
+                    string choice = (Console.ReadLine() ?? string.Empty).ToUpper();
+
+                    switch (choice)
+                    {
+                        case "H":
+                            game.Player.Hit(game.Deck);
+                            Console.WriteLine($"Player: {string.Join(", ", game.Player.Hand.Cards)} (Value: {game.Player.Hand.GetValue()})");
+                            if (game.Player.Hand.GetValue() > 21)
+                            {
+                                Console.WriteLine("Player busts!");
+                                playerTurn = false;
+                            }
+                            break;
+
+                        case "S":
                             playerTurn = false;
-                        }
-                        break;
+                            break;
 
-                    case "S":
-                        playerTurn = false;
-                        break;
+                        case "D":
+                            game.Player.Double(game.Deck);
+                            Console.WriteLine($"Player doubled. Hand: {string.Join(", ", game.Player.Hand.Cards)} (Value: {game.Player.Hand.GetValue()})");
+                            playerTurn = false;
+                            break;
 
-                    case "D":
-                        game.Player.Double(game.Deck);
-                        Console.WriteLine($"Player doubled. Hand: {string.Join(", ", game.Player.Hand.Cards)} (Value: {game.Player.Hand.GetValue()})");
-                        playerTurn = false;
-                        break;
+                        case "I":
+                            game.Player.Insurance();
+                            break;
 
-                    case "I":
-                        game.Player.Insurance();
-                        break;
-
-                    default:
-                        Console.WriteLine("Invalid choice.");
-                        break;
+                        default:
+                            Console.WriteLine("Invalid choice.");
+                            break;
+                    }
                 }
-            }
 
-            game.DealerTurn();
-            game.CompareHands();
+                game.DealerTurn();
+                game.CompareHands();
+            }
         }
     }
 }
+
 
 
