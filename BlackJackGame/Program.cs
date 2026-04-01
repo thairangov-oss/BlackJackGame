@@ -7,8 +7,9 @@ namespace BlackjackGame
 
     public enum Rank
     {
-        Two = 2, Three, Four, Five, Six, Seven, Eight, Nine, Ten,
-        Jack = 10, Queen = 10, King = 10, Ace = 11
+        Two, Three, Four, Five, Six,
+        Seven, Eight, Nine, Ten,
+        Jack, Queen, King, Ace
     }
 
     public class Card
@@ -56,6 +57,8 @@ namespace BlackjackGame
 
         public Card Deal()
         {
+            if (Cards.Count == 0)
+                throw new InvalidOperationException("No cards left in the deck!");
             Card card = Cards[0];
             Cards.RemoveAt(0);
             return card;
@@ -66,10 +69,7 @@ namespace BlackjackGame
     {
         public List<Card> Cards { get; } = new List<Card>();
 
-        public void AddCard(Card card)
-        {
-            Cards.Add(card);
-        }
+        public void AddCard(Card card) => Cards.Add(card);
 
         public int GetValue()
         {
@@ -78,8 +78,26 @@ namespace BlackjackGame
 
             foreach (var card in Cards)
             {
-                total += (int)card.Rank;
-                if (card.Rank == Rank.Ace) aceCount++;
+                switch (card.Rank)
+                {
+                    case Rank.Two: total += 2; break;
+                    case Rank.Three: total += 3; break;
+                    case Rank.Four: total += 4; break;
+                    case Rank.Five: total += 5; break;
+                    case Rank.Six: total += 6; break;
+                    case Rank.Seven: total += 7; break;
+                    case Rank.Eight: total += 8; break;
+                    case Rank.Nine: total += 9; break;
+                    case Rank.Ten:
+                    case Rank.Jack:
+                    case Rank.Queen:
+                    case Rank.King:
+                        total += 10; break;
+                    case Rank.Ace:
+                        total += 11;
+                        aceCount++;
+                        break;
+                }
             }
 
             while (total > 21 && aceCount > 0)
@@ -97,6 +115,7 @@ namespace BlackjackGame
         public Hand Hand { get; } = new Hand();
         public int Balance { get; set; } = 500;
         public int Bet { get; set; }
+        public bool InsuranceTaken { get; private set; }
 
         public void PlaceBet()
         {
@@ -111,6 +130,7 @@ namespace BlackjackGame
             }
             Bet = bet;
             Balance -= Bet;
+            InsuranceTaken = false;
             Console.WriteLine($"Bet placed: {Bet}. Remaining balance: {Balance}");
         }
 
@@ -132,6 +152,7 @@ namespace BlackjackGame
             if (Balance >= Bet / 2)
             {
                 Balance -= Bet / 2;
+                InsuranceTaken = true;
                 Console.WriteLine("Insurance taken.");
             }
             else Console.WriteLine("Not enough balance for insurance.");
@@ -185,6 +206,30 @@ namespace BlackjackGame
             int playerValue = Player.Hand.GetValue();
             int dealerValue = Dealer.GetValue();
 
+            // Insurance payout if dealer has Blackjack
+            if (Dealer.GetValue() == 21 && Dealer.Cards.Count == 2 && Player.InsuranceTaken)
+            {
+                Player.Balance += Player.Bet; // Insurance pays 2:1
+                Console.WriteLine("Dealer has Blackjack. Insurance pays out!");
+            }
+
+            // Natural Blackjack payout (3:2)
+            if (playerValue == 21 && Player.Hand.Cards.Count == 2)
+            {
+                if (dealerValue == 21 && Dealer.Cards.Count == 2)
+                {
+                    Console.WriteLine("Both have Blackjack! Push.");
+                    Player.Balance += Player.Bet;
+                }
+                else
+                {
+                    Console.WriteLine("Blackjack! Player wins with 3:2 payout.");
+                    Player.Balance += (int)(Player.Bet * 2.5);
+                }
+                Console.WriteLine($"Balance: {Player.Balance}");
+                return;
+            }
+
             if (playerValue > 21)
                 Console.WriteLine("Player busts! Lost bet.");
             else if (dealerValue > 21 || playerValue > dealerValue)
@@ -208,6 +253,7 @@ namespace BlackjackGame
     {
         public static void Main()
         {
+            Console.WriteLine("Welcome to BlackJack");
             Console.WriteLine("Verifying deck contents...");
             Deck verifyDeck = new Deck();
             Console.WriteLine("Cards have been verified");
@@ -224,6 +270,8 @@ namespace BlackjackGame
                     if (choice == "R")
                     {
                         game.Player.Balance = 500;
+                        game.Player.Hand.Cards.Clear();
+                        game.Dealer.Cards.Clear();
                         Console.WriteLine("Balance reset to 500.");
                     }
                     else return;
@@ -259,24 +307,13 @@ namespace BlackjackGame
                             playerTurn = false;
                             break;
 
-                        case "I":
-                            game.Player.Insurance();
-                            break;
-
-                        default:
-                            Console.WriteLine("Invalid choice.");
-                            break;
                     }
                 }
 
+                // After player finishes, dealer plays
                 game.DealerTurn();
                 game.CompareHands();
             }
         }
     }
 }
-
-
-
-
-
