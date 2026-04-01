@@ -1,38 +1,38 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace BlackjackGame
+namespace BlackJackGame
 {
     public class Deck
     {
-        public List<Card> Cards { get; private set; }
+        private List<Card> cards;
         private Random rng = new Random();
 
         public Deck()
         {
-            Cards = new List<Card>();
+            cards = new List<Card>();
             foreach (Suit suit in Enum.GetValues(typeof(Suit)))
             {
                 foreach (Rank rank in Enum.GetValues(typeof(Rank)))
                 {
-                    Cards.Add(new Card(suit, rank));
+                    cards.Add(new Card(suit, rank));
                 }
             }
         }
 
         public void Shuffle()
         {
-            for (int i = Cards.Count - 1; i > 0; i--)
+            for (int i = cards.Count - 1; i > 0; i--)
             {
                 int j = rng.Next(i + 1);
-                (Cards[i], Cards[j]) = (Cards[j], Cards[i]);
+                (cards[i], cards[j]) = (cards[j], cards[i]);
             }
         }
 
         public Card Deal()
         {
-            Card card = Cards[0];
-            Cards.RemoveAt(0);
+            Card card = cards[0];
+            cards.RemoveAt(0);
             return card;
         }
     }
