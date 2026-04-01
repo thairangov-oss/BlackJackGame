@@ -1,35 +1,36 @@
-name: BlackJackGame Build
+name: Build and Test
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - Feature-Branch
   pull_request:
-    branches: [main]
+    branches:
+      - main
+      - Feature-Branch
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:
-      # Step 1: Pull down your repository code
-      - name: Checkout repository
-        uses: actions/checkout@v3
 
-      # Step 2: Install the .NET SDK (adjust version to match your project)
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Setup .NET
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
 
-      # Step 3: Restore NuGet packages
       - name: Restore dependencies
         run: dotnet restore BlackJackGame.csproj
 
-      # Step 4: Build the project in Release mode
-      - name: Build project
-        run: dotnet build BlackJackGame.csproj --configuration Release --no-restore
+      - name: Build
+        run: dotnet build BlackJackGame.csproj --no-restore --configuration Release
 
-      # Step 5: Print a success message
-      - name: Success message
-        run: echo "BlackJackGame built successfully!"
+      - name: Run tests
+        run: dotnet test BlackJackGame.csproj --no-build --configuration Release --verbosity normal
+
 
 
