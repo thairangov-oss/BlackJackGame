@@ -8,7 +8,6 @@ namespace BlackjackGame
         public Player Player { get; set; }
         public Hand Dealer { get; private set; }
 
-        // ✅ Constructor initializes all non-nullable properties
         public BlackjackGame()
         {
             Deck = new Deck();
@@ -69,4 +68,5 @@ namespace BlackjackGame
         }
     }
 }
+
 
