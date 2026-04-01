@@ -6,6 +6,14 @@ namespace BlackJackGame
     {
         public static void Main()
         {
+            
+            Console.WriteLine("Verifying deck contents...");
+            Deck verifyDeck = new Deck();
+            foreach (var card in verifyDeck.Cards)
+            {
+                Console.WriteLine(card);
+            }
+            Console.WriteLine($"Total cards: {verifyDeck.Cards.Count}\n");
             BlackJackGame game = new BlackJackGame();
             game.Player = new Player();
 
