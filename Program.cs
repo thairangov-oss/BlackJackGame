@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace BlackjackGame
@@ -71,7 +71,7 @@ namespace BlackjackGame
             Cards.Add(card);
         }
 
-        public int GetValue()
+        public int CalculateScore()
         {
             int total = 0;
             int aceCount = 0;
@@ -169,28 +169,45 @@ namespace BlackjackGame
             Player.Hand.AddCard(Deck.Deal());
             Dealer.AddCard(Deck.Deal());
 
-            Console.WriteLine($"Player: {string.Join(", ", Player.Hand.Cards)} (Value: {Player.Hand.GetValue()})");
+            Console.WriteLine($"Player: {string.Join(", ", Player.Hand.Cards)} (Score: {Player.Hand.CalculateScore()})");
             Console.WriteLine($"Dealer: {Dealer.Cards[0]} and [Hidden]");
+
+            // Check for immediate Blackjack
+            if (Player.Hand.CalculateScore() == 21)
+            {
+                Console.WriteLine("Blackjack! Player wins immediately.");
+                Player.Balance += (int)(Player.Bet * 2.5); // 3:2 payout
+                Console.WriteLine($"Balance: {Player.Balance}");
+                return;
+            }
         }
 
         public void DealerTurn()
         {
-            while (Dealer.GetValue() < 17)
+            Console.WriteLine($"Dealer reveals hidden card: {Dealer.Cards[1]}");
+            while (Dealer.CalculateScore() < 17)
             {
                 Dealer.AddCard(Deck.Deal());
             }
 
-            Console.WriteLine($"Dealer: {string.Join(", ", Dealer.Cards)} (Value: {Dealer.GetValue()})");
+            Console.WriteLine($"Dealer: {string.Join(", ", Dealer.Cards)} (Score: {Dealer.CalculateScore()})");
         }
 
         public void CompareHands()
         {
-            int playerValue = Player.Hand.GetValue();
-            int dealerValue = Dealer.GetValue();
+            int playerValue = Player.Hand.CalculateScore();
+            int dealerValue = Dealer.CalculateScore();
+
+            Console.WriteLine($"\nFinal Scores → Player: {playerValue}, Dealer: {dealerValue}");
 
             if (playerValue > 21)
                 Console.WriteLine("Player busts! Lost bet.");
-            else if (dealerValue > 21 || playerValue > dealerValue)
+            else if (dealerValue > 21)
+            {
+                Console.WriteLine("Dealer busts! Player wins!");
+                Player.Balance += Player.Bet * 2;
+            }
+            else if (playerValue > dealerValue)
             {
                 Console.WriteLine("Player wins!");
                 Player.Balance += Player.Bet * 2;
@@ -213,16 +230,15 @@ namespace BlackjackGame
         {
             Console.WriteLine("Verifying deck contents...");
             Deck verifyDeck = new Deck();
-
-
             Console.WriteLine("Cards have been verified");
-
             Console.WriteLine($"Total cards: {verifyDeck.Cards.Count}\n");
 
             BlackjackGame game = new BlackjackGame();
 
             while (true)
             {
+                Console.Clear(); 
+
                 if (game.Player.Balance <= 0)
                 {
                     Console.WriteLine("\nYou are bust! Retry (R) or press any key to close.");
@@ -247,8 +263,8 @@ namespace BlackjackGame
                     {
                         case "H":
                             game.Player.Hit(game.Deck);
-                            Console.WriteLine($"Player: {string.Join(", ", game.Player.Hand.Cards)} (Value: {game.Player.Hand.GetValue()})");
-                            if (game.Player.Hand.GetValue() > 21)
+                            Console.WriteLine($"Player: {string.Join(", ", game.Player.Hand.Cards)} (Score: {game.Player.Hand.CalculateScore()})");
+                            if (game.Player.Hand.CalculateScore() > 21)
                             {
                                 Console.WriteLine("Player busts!");
                                 playerTurn = false;
@@ -261,7 +277,7 @@ namespace BlackjackGame
 
                         case "D":
                             game.Player.Double(game.Deck);
-                            Console.WriteLine($"Player doubled. Hand: {string.Join(", ", game.Player.Hand.Cards)} (Value: {game.Player.Hand.GetValue()})");
+                            Console.WriteLine($"Player doubled. Hand: {string.Join(", ", game.Player.Hand.Cards)} (Score: {game.Player.Hand.CalculateScore()})");
                             playerTurn = false;
                             break;
 
@@ -277,6 +293,11 @@ namespace BlackjackGame
 
                 game.DealerTurn();
                 game.CompareHands();
+
+
+                Console.WriteLine("\nDo you want to play again? (Y/N)");
+                string replayChoice = (Console.ReadLine() ?? string.Empty).ToUpper();
+                if (replayChoice != "Y") break;
             }
         }
     }
