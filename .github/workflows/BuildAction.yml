@@ -29,24 +29,25 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: 24
+        cache: 'npm'   
 
-   
     - name: Restore .NET dependencies
       run: dotnet restore BlackJackGame.csproj
 
-    
+  
     - name: Build .NET project
       run: dotnet build BlackJackGame.csproj --no-restore --configuration Release
-
 
     - name: Run .NET tests
       run: dotnet test BlackJackGame.csproj --no-build --verbosity normal
 
-    
+  
     - name: Install Node.js dependencies
       run: |
         if [ -f package.json ]; then
-          npm install
+          npm ci
+        else
+          echo "No package.json found, skipping npm install"
         fi
 
    
@@ -54,6 +55,8 @@ jobs:
       run: |
         if [ -f package.json ]; then
           npm test || echo "No Node.js tests defined"
+        else
+          echo "No package.json found, skipping npm test"
         fi
 
 
