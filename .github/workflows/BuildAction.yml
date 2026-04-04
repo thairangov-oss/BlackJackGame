@@ -14,34 +14,33 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true   # Opt in early to Node.js 24 runtime
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-  
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
 
-
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: 24
-        cache: 'npm'   
+        cache: 'npm'
 
     - name: Restore .NET dependencies
       run: dotnet restore BlackJackGame.csproj
 
-  
     - name: Build .NET project
       run: dotnet build BlackJackGame.csproj --no-restore --configuration Release
 
     - name: Run .NET tests
       run: dotnet test BlackJackGame.csproj --no-build --verbosity normal
 
-  
     - name: Install Node.js dependencies
       run: |
         if [ -f package.json ]; then
@@ -50,7 +49,6 @@ jobs:
           echo "No package.json found, skipping npm install"
         fi
 
-   
     - name: Run Node.js tests
       run: |
         if [ -f package.json ]; then
