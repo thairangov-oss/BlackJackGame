@@ -1,36 +1,37 @@
-name: Build and Test
+name: .NET Build & Test
 
 on:
   push:
     branches:
       - main
-      - Feature-Branch
+      - NewFeature-Branch
   pull_request:
     branches:
       - main
-      - Feature-Branch
+      - NewFeature-Branch
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v5   # upgrade when available
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v5   # upgrade when available
-        with:
-          dotnet-version: '8.0.x'
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
 
-      - name: Restore dependencies
-        run: dotnet restore BlackJackGame.csproj
+    - name: Restore dependencies
+      run: dotnet restore BlackJackGame.csproj
 
-      - name: Build
-        run: dotnet build BlackJackGame.csproj --no-restore --configuration Release
+    - name: Build
+      run: dotnet build BlackJackGame.csproj --no-restore --configuration Release
 
-      - name: Run tests
-        run: dotnet test BlackJackGame.csproj --no-build --configuration Release --verbosity normal
+    - name: Run tests
+      run: dotnet test BlackJackGame.csproj --no-build --verbosity normal
 
 
+    
 
