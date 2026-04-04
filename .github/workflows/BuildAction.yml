@@ -14,34 +14,35 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      # Opt in early to Node.js 24 runtime for actions if desired
+      # Remove or comment this line if you want to stay on Node.js 20 until June 2026
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-  
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
 
-
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: 24
-        cache: 'npm'   
+        node-version: 20   # Explicitly use Node.js 20 for your project
+        cache: 'npm'
 
     - name: Restore .NET dependencies
       run: dotnet restore BlackJackGame.csproj
 
-  
     - name: Build .NET project
       run: dotnet build BlackJackGame.csproj --no-restore --configuration Release
 
     - name: Run .NET tests
       run: dotnet test BlackJackGame.csproj --no-build --verbosity normal
 
-  
     - name: Install Node.js dependencies
       run: |
         if [ -f package.json ]; then
@@ -50,7 +51,6 @@ jobs:
           echo "No package.json found, skipping npm install"
         fi
 
-   
     - name: Run Node.js tests
       run: |
         if [ -f package.json ]; then
