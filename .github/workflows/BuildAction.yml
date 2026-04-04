@@ -15,7 +15,9 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true   # Opt in early to Node.js 24 runtime
+      # Opt in early to Node.js 24 runtime for actions if desired
+      # Remove or comment this line if you want to stay on Node.js 20 until June 2026
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
     - name: Checkout repository
@@ -29,7 +31,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: 24
+        node-version: 20   # Explicitly use Node.js 20 for your project
         cache: 'npm'
 
     - name: Restore .NET dependencies
