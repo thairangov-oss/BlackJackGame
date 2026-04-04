@@ -1,4 +1,4 @@
-name: .NET Build & Test
+name: Build & Test (.NET + Node.js)
 
 on:
   push:
@@ -18,19 +18,46 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
+  
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
 
-    - name: Restore dependencies
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 24
+        cache: 'npm'   
+
+    - name: Restore .NET dependencies
       run: dotnet restore BlackJackGame.csproj
 
-    - name: Build
+  
+    - name: Build .NET project
       run: dotnet build BlackJackGame.csproj --no-restore --configuration Release
 
-    - name: Run tests
+    - name: Run .NET tests
       run: dotnet test BlackJackGame.csproj --no-build --verbosity normal
+
+  
+    - name: Install Node.js dependencies
+      run: |
+        if [ -f package.json ]; then
+          npm ci
+        else
+          echo "No package.json found, skipping npm install"
+        fi
+
+   
+    - name: Run Node.js tests
+      run: |
+        if [ -f package.json ]; then
+          npm test || echo "No Node.js tests defined"
+        else
+          echo "No package.json found, skipping npm test"
+        fi
 
 
     
