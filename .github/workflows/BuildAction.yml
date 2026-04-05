@@ -18,24 +18,23 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    # ---------------------------
-    # .NET Setup & Build
-    # ---------------------------
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
         cache: true
-        cache-dependency-path: BlackJackGame/packages.lock.json
+      
 
-    - name: Restore .NET dependencies (generate lock file if missing)
-      run: dotnet restore BlackJackGame/BlackJackGame.csproj --use-lock-file
+    - name: Restore .NET dependencies
+      run: dotnet restore BlackJackGame/BlackJackGame.csproj
 
     - name: Build .NET project
       run: dotnet build BlackJackGame/BlackJackGame.csproj --no-restore --configuration Release
 
     - name: Run .NET tests
       run: dotnet test BlackJackGame/BlackJackGame.csproj --no-build --verbosity normal
+
 
 
     
