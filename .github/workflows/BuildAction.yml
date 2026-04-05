@@ -1,4 +1,4 @@
-name: Build & Test (.NET + Node.js)
+name: Build & Test (.NET)
 
 on:
   push:
@@ -18,41 +18,24 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
+    # ---------------------------
+    # .NET Setup & Build
+    # ---------------------------
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
+        cache: true
+        cache-dependency-path: BlackJackGame/packages.lock.json
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20  
-        cache: 'npm'
-
-    - name: Restore .NET dependencies
-      run: dotnet restore BlackJackGame/BlackJackGame.csproj
+    - name: Restore .NET dependencies (generate lock file if missing)
+      run: dotnet restore BlackJackGame/BlackJackGame.csproj --use-lock-file
 
     - name: Build .NET project
       run: dotnet build BlackJackGame/BlackJackGame.csproj --no-restore --configuration Release
 
     - name: Run .NET tests
       run: dotnet test BlackJackGame/BlackJackGame.csproj --no-build --verbosity normal
-
-    - name: Install Node.js dependencies
-      run: |
-        if [ -f package.json ]; then
-          npm ci
-        else
-          echo "No package.json found, skipping npm install"
-        fi
-
-    - name: Run Node.js tests
-      run: |
-        if [ -f package.json ]; then
-          npm test || echo "No Node.js tests defined"
-        else
-          echo "No package.json found, skipping npm test"
-        fi
 
 
     
