@@ -23,16 +23,18 @@ jobs:
       with:
         dotnet-version: 8.0.x
         cache: true
-  
+     
 
     - name: Restore .NET dependencies
-      run: dotnet restore BlackJackGame/BlackJackGame.csproj
+      run: dotnet restore BlackJackGame/BlackJackGame.csproj --use-lock-file
 
     - name: Build .NET project
       run: dotnet build BlackJackGame/BlackJackGame.csproj --no-restore --configuration Release
 
     - name: Run .NET tests
       run: dotnet test BlackJackGame/BlackJackGame.csproj --no-build --verbosity normal
+
+
 
 
 
