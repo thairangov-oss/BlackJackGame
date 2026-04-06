@@ -7,8 +7,8 @@ namespace BlackjackGame
 
     public enum Rank
     {
-        Two = 2, Three, Four, Five, Six, Seven, Eight, Nine, Ten,
-        Jack = 10, Queen = 10, King = 10, Ace = 11
+        Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten,
+        Jack, Queen, King, Ace
     }
 
     public class Card
@@ -25,6 +25,24 @@ namespace BlackjackGame
         public override string ToString()
         {
             return $"{Rank} of {Suit}";
+        }
+    }
+
+    public static class CardValueHelper
+    {
+        public static int GetCardValue(Rank rank)
+        {
+            switch (rank)
+            {
+                case Rank.Jack:
+                case Rank.Queen:
+                case Rank.King:
+                    return 10;
+                case Rank.Ace:
+                    return 11; // flexible, adjusted later
+                default:
+                    return (int)rank + 2; // Two=0 → 2, Three=1 → 3, etc.
+            }
         }
     }
 
@@ -78,13 +96,15 @@ namespace BlackjackGame
 
             foreach (var card in Cards)
             {
-                total += (int)card.Rank;
+                int value = CardValueHelper.GetCardValue(card.Rank);
+                total += value;
                 if (card.Rank == Rank.Ace) aceCount++;
             }
 
+            // Adjust Aces if bust
             while (total > 21 && aceCount > 0)
             {
-                total -= 10;
+                total -= 10; // downgrade Ace from 11 → 1
                 aceCount--;
             }
 
@@ -237,7 +257,7 @@ namespace BlackjackGame
 
             while (true)
             {
-                Console.Clear(); 
+                Console.Clear();
 
                 if (game.Player.Balance <= 0)
                 {
@@ -294,7 +314,6 @@ namespace BlackjackGame
                 game.DealerTurn();
                 game.CompareHands();
 
-
                 Console.WriteLine("\nDo you want to play again? (Y/N)");
                 string replayChoice = (Console.ReadLine() ?? string.Empty).ToUpper();
                 if (replayChoice != "Y") break;
@@ -302,3 +321,4 @@ namespace BlackjackGame
         }
     }
 }
+
