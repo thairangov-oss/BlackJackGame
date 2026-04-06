@@ -1,5 +1,5 @@
+# Ignore Visual Studio cache and temp files
 .vs/
+*.vsidx
 bin/
 obj/
-*.user
-*.suo
