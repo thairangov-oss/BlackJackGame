@@ -17,7 +17,7 @@ jobs:
       - name: Setup .NET 9.0 SDK
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 9.0.0
+          dotnet-version: 9.0.x  
 
       - name: Restore dependencies
         run: dotnet restore
@@ -27,6 +27,7 @@ jobs:
 
       - name: Run tests
         run: dotnet test --no-build --verbosity normal
+
 
 
 
