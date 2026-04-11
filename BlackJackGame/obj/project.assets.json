@@ -1222,9 +1222,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\thair\\Desktop\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame.csproj",
-      "projectName": "BlackJackGame",
-      "projectPath": "C:\\Users\\thair\\Desktop\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame.csproj",
+      "projectUniqueName": "C:\\Users\\thair\\Desktop\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame.csproj.csproj",
+      "projectName": "BlackJackGame.csproj",
+      "projectPath": "C:\\Users\\thair\\Desktop\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame.csproj.csproj",
       "packagesPath": "C:\\Users\\thair\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\thair\\Desktop\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\obj\\",
       "projectStyle": "PackageReference",
