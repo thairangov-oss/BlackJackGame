@@ -52,9 +52,13 @@
           "framework": "net8.0",
           "targetAlias": "net8.0",
           "dependencies": {
-            "xunit.v3": {
+            "xunit": {
               "target": "Package",
-              "version": "[3.2.2, )"
+              "version": "[2.4.2, )"
+            },
+            "xunit.runner.visualstudio": {
+              "target": "Package",
+              "version": "[2.4.5, )"
             }
           },
           "imports": [
