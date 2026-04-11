@@ -1,6 +1,0 @@
-C:\Users\thair\Desktop\BlackJackGame\BlackJackGame\BlackJackGame\BlackJackGame\BlackJackGame\BlackJackGame.Tests\obj\Release\net8.0\BlackJackGame.Tests.csproj.AssemblyReference.cache
-C:\Users\thair\Desktop\BlackJackGame\BlackJackGame\BlackJackGame\BlackJackGame\BlackJackGame\BlackJackGame.Tests\obj\Release\net8.0\BlackJackGame.Tests.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\thair\Desktop\BlackJackGame\BlackJackGame\BlackJackGame\BlackJackGame\BlackJackGame\BlackJackGame.Tests\obj\Release\net8.0\BlackJackGame.Tests.AssemblyInfoInputs.cache
-C:\Users\thair\Desktop\BlackJackGame\BlackJackGame\BlackJackGame\BlackJackGame\BlackJackGame\BlackJackGame.Tests\obj\Release\net8.0\BlackJackGame.Tests.AssemblyInfo.cs
-C:\Users\thair\Desktop\BlackJackGame\BlackJackGame\BlackJackGame\BlackJackGame\BlackJackGame\BlackJackGame.Tests\obj\Release\net8.0\BlackJackGame.Tests.csproj.CoreCompileInputs.cache
-C:\Users\thair\Desktop\BlackJackGame\BlackJackGame\BlackJackGame\BlackJackGame\BlackJackGame\BlackJackGame.Tests\obj\Release\net8.0\BlackJackGame.Tests.sourcelink.json

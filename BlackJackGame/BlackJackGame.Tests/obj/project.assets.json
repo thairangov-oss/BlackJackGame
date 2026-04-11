@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 3,
   "targets": {
     "net8.0": {
       "coverlet.collector/6.0.4": {
@@ -430,6 +430,16 @@
         },
         "build": {
           "build/netcoreapp3.1/xunit.runner.visualstudio.props": {}
+        }
+      },
+      "BlackJackGame/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/BlackJackGame.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BlackJackGame.dll": {}
         }
       }
     }
@@ -1014,10 +1024,16 @@
         "xunit.runner.visualstudio.2.4.5.nupkg.sha512",
         "xunit.runner.visualstudio.nuspec"
       ]
+    },
+    "BlackJackGame/1.0.0": {
+      "type": "project",
+      "path": "../BlackJackGame.csproj",
+      "msbuildProject": "../BlackJackGame.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "BlackJackGame >= 1.0.0",
       "Microsoft.NET.Test.Sdk >= 17.14.1",
       "coverlet.collector >= 6.0.4",
       "xunit >= 2.9.3",
@@ -1054,9 +1070,12 @@
       },
       "frameworks": {
         "net8.0": {
-          "framework": "net8.0",
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\thair\\Desktop\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame.csproj": {
+              "projectPath": "C:\\Users\\thair\\Desktop\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -1069,11 +1088,10 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "11.0.100"
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
-        "framework": "net8.0",
         "targetAlias": "net8.0",
         "dependencies": {
           "Microsoft.NET.Test.Sdk": {
@@ -1104,26 +1122,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[8.0.24, 8.0.24]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[8.0.24, 8.0.24]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[8.0.24, 8.0.24]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\11.0.100-preview.2.26159.112/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.312/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
