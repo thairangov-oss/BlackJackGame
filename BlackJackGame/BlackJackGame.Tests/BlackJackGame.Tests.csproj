@@ -15,11 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    
-    <ItemGroup>
-  <ProjectReference Include="..\BlackJackGame\BlackJackGame.csproj" />
-  </ItemGroup>
-
+    <!-- Correct reference to the real game project -->
+    <ProjectReference Include="..\BlackJackGame\BlackJackGame.csproj" />
   </ItemGroup>
 
 </Project>
