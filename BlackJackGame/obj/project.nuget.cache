@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+NdpZYJv+QY=",
+  "dgSpecHash": "dYM1o7XyuhM=",
   "success": true,
-  "projectFilePath": "C:\\Users\\thair\\Desktop\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame.csproj.csproj",
+  "projectFilePath": "C:\\Users\\thair\\Desktop\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\thair\\.nuget\\packages\\microsoft.applicationinsights\\2.23.0\\microsoft.applicationinsights.2.23.0.nupkg.sha512",
     "C:\\Users\\thair\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
