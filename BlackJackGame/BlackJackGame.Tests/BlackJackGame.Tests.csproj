@@ -15,8 +15,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- Point directly to the csproj inside .vs -->
-    <ProjectReference Include="..\BlackJackGame\.vs\BlackJackGame.csproj" />
+    
+    <ItemGroup>
+  <ProjectReference Include="..\BlackJackGame\BlackJackGame.csproj" />
+  </ItemGroup>
+
   </ItemGroup>
 
 </Project>
