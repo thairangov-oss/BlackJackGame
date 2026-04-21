@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "94TFEDWt1x0=",
+  "dgSpecHash": "7imM9szQnxo=",
   "success": true,
   "projectFilePath": "C:\\Users\\thair\\Desktop\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame.Tests\\BlackJackGame.Tests.csproj",
   "expectedPackageFiles": [
@@ -19,10 +19,7 @@
     "C:\\Users\\thair\\.nuget\\packages\\xunit.core\\2.9.3\\xunit.core.2.9.3.nupkg.sha512",
     "C:\\Users\\thair\\.nuget\\packages\\xunit.extensibility.core\\2.9.3\\xunit.extensibility.core.2.9.3.nupkg.sha512",
     "C:\\Users\\thair\\.nuget\\packages\\xunit.extensibility.execution\\2.9.3\\xunit.extensibility.execution.2.9.3.nupkg.sha512",
-    "C:\\Users\\thair\\.nuget\\packages\\xunit.runner.visualstudio\\2.4.5\\xunit.runner.visualstudio.2.4.5.nupkg.sha512",
-    "C:\\Users\\thair\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.24\\microsoft.netcore.app.ref.8.0.24.nupkg.sha512",
-    "C:\\Users\\thair\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.24\\microsoft.windowsdesktop.app.ref.8.0.24.nupkg.sha512",
-    "C:\\Users\\thair\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.24\\microsoft.aspnetcore.app.ref.8.0.24.nupkg.sha512"
+    "C:\\Users\\thair\\.nuget\\packages\\xunit.runner.visualstudio\\2.4.5\\xunit.runner.visualstudio.2.4.5.nupkg.sha512"
   ],
   "logs": []
 }
