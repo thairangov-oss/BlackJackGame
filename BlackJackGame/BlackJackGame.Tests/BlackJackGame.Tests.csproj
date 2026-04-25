@@ -10,14 +10,14 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.4.0" />
     <PackageReference Include="xunit" Version="2.9.3" />
-<<<<<<< HEAD
+
     <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-=======
+
     <PackageReference Include="xunit.runner.visualstudio" Version="2.6.6" />
->>>>>>> 29b9626966428c3f3bc5c4dd92320feafacc8b7b
+     
     <PackageReference Include="coverlet.collector" Version="6.0.4" />
   </ItemGroup>
 
