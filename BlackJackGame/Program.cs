@@ -38,7 +38,7 @@ namespace BlackjackGame
                 case Rank.Ace:
                     return 11;
                 default:
-                    return (int)rank; // explicit enum values
+                    return (int)rank;
             }
         }
     }
@@ -157,7 +157,7 @@ namespace BlackjackGame
 
     public class Game
     {
-        public Deck Deck { get; private set; }
+        public Deck Deck { get; set; }
         public Player Player { get; set; }
         public Hand Dealer { get; private set; }
         public bool IsRoundComplete { get; set; }
@@ -169,11 +169,21 @@ namespace BlackjackGame
             Dealer = new Hand();
         }
 
+        public void ForceNewDeck(Deck deck)
+        {
+            Deck = deck;
+        }
+
         public void Start()
         {
             IsRoundComplete = false;
-            Deck = new Deck();
-            Deck.Shuffle();
+
+            // Only reset deck if none was injected
+            if (Deck == null || Deck.Cards.Count == 0)
+            {
+                Deck = new Deck();
+                Deck.Shuffle();
+            }
 
             Player.Hand.Cards.Clear();
             Dealer = new Hand();
