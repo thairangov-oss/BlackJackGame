@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "EeR9c20Q2Gc=",
-  "success": false,
-  "projectFilePath": "C:\\Users\\thair\\Desktop\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame.Tests\\BlackJackGame.Tests.csproj",
+  "dgSpecHash": "aokQ0qTrd58=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\thair\\Desktop\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame.Tests\\BlackJackGame.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\thair\\.nuget\\packages\\coverlet.collector\\6.0.4\\coverlet.collector.6.0.4.nupkg.sha512",
     "C:\\Users\\thair\\.nuget\\packages\\microsoft.codecoverage\\18.4.0\\microsoft.codecoverage.18.4.0.nupkg.sha512",
@@ -21,17 +21,5 @@
     "C:\\Users\\thair\\.nuget\\packages\\xunit.extensibility.execution\\2.9.3\\xunit.extensibility.execution.2.9.3.nupkg.sha512",
     "C:\\Users\\thair\\.nuget\\packages\\xunit.runner.visualstudio\\3.1.5\\xunit.runner.visualstudio.3.1.5.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1104",
-      "level": "Error",
-      "message": "Unable to find project 'C:\\Users\\thair\\Desktop\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame.csproj'. Check that the project reference is valid and that the project file exists.",
-      "projectPath": "C:\\Users\\thair\\Desktop\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame.Tests\\BlackJackGame.Tests.csproj",
-      "filePath": "C:\\Users\\thair\\Desktop\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame.Tests\\BlackJackGame.Tests.csproj",
-      "libraryId": "C:\\Users\\thair\\Desktop\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame.csproj",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    }
-  ]
+  "logs": []
 }
