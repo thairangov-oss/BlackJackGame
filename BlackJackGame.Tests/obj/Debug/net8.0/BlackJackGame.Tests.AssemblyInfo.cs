@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BlackJackGame.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+607e19dce6cba984a01cbb104e0d8e9d3e81eba8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e75e8a31eec8f3c323342d823c3e8ca226dd7530")]
 [assembly: System.Reflection.AssemblyProductAttribute("BlackJackGame.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BlackJackGame.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

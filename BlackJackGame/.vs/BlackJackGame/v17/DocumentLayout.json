@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\thair\\Desktop\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{33FC1FAD-871E-4B75-AE3E-ED6A4062893E}|BlackJackGame.csproj|c:\\users\\thair\\desktop\\blackjackgame\\blackjackgame\\blackjackgame\\blackjackgame\\blackjackgame\\blackjackgame.tests\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{33FC1FAD-871E-4B75-AE3E-ED6A4062893E}|BlackJackGame.csproj|solutionrelative:blackjackgame.tests\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{33FC1FAD-871E-4B75-AE3E-ED6A4062893E}|BlackJackGame.csproj|c:\\users\\thair\\desktop\\blackjackgame\\blackjackgame\\blackjackgame\\blackjackgame\\blackjackgame\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{33FC1FAD-871E-4B75-AE3E-ED6A4062893E}|BlackJackGame.csproj|solutionrelative:unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{33FC1FAD-871E-4B75-AE3E-ED6A4062893E}|BlackJackGame.csproj|c:\\users\\thair\\desktop\\blackjackgame\\blackjackgame\\blackjackgame\\blackjackgame\\blackjackgame\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -28,13 +28,13 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "UnitTest1.cs",
-              "DocumentMoniker": "C:\\Users\\thair\\Desktop\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame.Tests\\UnitTest1.cs",
-              "RelativeDocumentMoniker": "BlackJackGame.Tests\\UnitTest1.cs",
-              "ToolTip": "C:\\Users\\thair\\Desktop\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame.Tests\\UnitTest1.cs",
-              "RelativeToolTip": "BlackJackGame.Tests\\UnitTest1.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentMoniker": "C:\\Users\\thair\\Desktop\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\UnitTest1.cs",
+              "RelativeDocumentMoniker": "UnitTest1.cs",
+              "ToolTip": "C:\\Users\\thair\\Desktop\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\UnitTest1.cs",
+              "RelativeToolTip": "UnitTest1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-25T17:45:23.497Z",
+              "WhenOpened": "2026-04-27T07:35:01.353Z",
               "EditorCaption": ""
             },
             {

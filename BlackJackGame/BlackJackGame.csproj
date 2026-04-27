@@ -11,28 +11,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="BlackJackGame.Tests\BlackJackGame.Tests.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="BlackJackGame.Tests\bin\Debug\net8.0\cs\" />
-    <Folder Include="BlackJackGame.Tests\bin\Debug\net8.0\de\" />
-    <Folder Include="BlackJackGame.Tests\bin\Debug\net8.0\es\" />
-    <Folder Include="BlackJackGame.Tests\bin\Debug\net8.0\fr\" />
-    <Folder Include="BlackJackGame.Tests\bin\Debug\net8.0\it\" />
-    <Folder Include="BlackJackGame.Tests\bin\Debug\net8.0\ja\" />
-    <Folder Include="BlackJackGame.Tests\bin\Debug\net8.0\ko\" />
-    <Folder Include="BlackJackGame.Tests\bin\Debug\net8.0\pl\" />
-    <Folder Include="BlackJackGame.Tests\bin\Debug\net8.0\pt-BR\" />
-    <Folder Include="BlackJackGame.Tests\bin\Debug\net8.0\ru\" />
-    <Folder Include="BlackJackGame.Tests\bin\Debug\net8.0\tr\" />
-    <Folder Include="BlackJackGame.Tests\bin\Debug\net8.0\zh-Hans\" />
-    <Folder Include="BlackJackGame.Tests\bin\Debug\net8.0\zh-Hant\" />
-    <Folder Include="BlackJackGame.Tests\bin\Release\net8.0\" />
-    <Folder Include="BlackJackGame.Tests\obj\Debug\net8.0\refint\" />
-    <Folder Include="BlackJackGame.Tests\obj\Debug\net8.0\ref\" />
-    <Folder Include="BlackJackGame.Tests\obj\Release\net8.0\refint\" />
-    <Folder Include="BlackJackGame.Tests\obj\Release\net8.0\ref\" />
+    <Compile Remove="BlackJackGame.Tests\**" />
+    <EmbeddedResource Remove="BlackJackGame.Tests\**" />
+    <None Remove="BlackJackGame.Tests\**" />
   </ItemGroup>
 
 </Project>
