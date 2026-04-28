@@ -26,7 +26,8 @@ jobs:
         run: dotnet build ./BlackJackGame/BlackJackGame.csproj --configuration Release --no-restore
 
       - name: Run tests
-        run: dotnet test ./BlackJackGame/BlackJackGame.csproj --no-build --verbosity normal
+        run: dotnet test ./BlackJackGame.Tests/BlackJackGame.Tests.csproj --configuration Release --no-build --verbosity normal
+
 
 
 
