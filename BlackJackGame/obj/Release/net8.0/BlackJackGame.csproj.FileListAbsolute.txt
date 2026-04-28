@@ -1,3 +1,0 @@
-C:\Users\thair\Desktop\BlackJackGame\BlackJackGame\BlackJackGame\BlackJackGame\BlackJackGame\obj\Release\net8.0\BlackJackGame.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\thair\Desktop\BlackJackGame\BlackJackGame\BlackJackGame\BlackJackGame\BlackJackGame\obj\Release\net8.0\BlackJackGame.csproj.CoreCompileInputs.cache
-C:\Users\thair\Desktop\BlackJackGame\BlackJackGame\BlackJackGame\BlackJackGame\BlackJackGame\obj\Release\net8.0\BlackJackGame.sourcelink.json
