@@ -19,7 +19,7 @@ namespace BlackjackGameTests
             var firstCardBefore = deck.Cards[0];
             deck.Shuffle();
             var firstCardAfter = deck.Cards[0];
-            // Not guaranteed, but highly likely
+            
             Assert.NotEqual(firstCardBefore, firstCardAfter);
         }
 
@@ -32,7 +32,7 @@ namespace BlackjackGameTests
             hand.AddCard(new Card(Suit.Diamonds, Rank.Nine));
 
             int score = hand.CalculateScore();
-            Assert.Equal(20, score); // Ace should count as 1 here
+            Assert.Equal(20, score); 
         }
 
         [Fact]
@@ -74,13 +74,13 @@ namespace BlackjackGameTests
             customDeck.Cards.Add(new Card(Suit.Clubs, Rank.Two));
             customDeck.Cards.Add(new Card(Suit.Diamonds, Rank.Three));
 
-            // Use the safer controlled method
+            
             game.ForceNewDeck(customDeck);
 
             game.Start();
 
             Assert.True(game.IsRoundComplete);
-            Assert.True(game.Player.Balance > 500); // Balance increased
+            Assert.True(game.Player.Balance > 500); 
         }
     }
 }

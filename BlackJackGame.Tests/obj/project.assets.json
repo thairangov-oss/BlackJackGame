@@ -431,6 +431,16 @@
         "build": {
           "build/net8.0/xunit.runner.visualstudio.props": {}
         }
+      },
+      "BlackJackGame/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/BlackJackGame.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BlackJackGame.dll": {}
+        }
       }
     }
   },
@@ -1017,10 +1027,16 @@
         "xunit.runner.visualstudio.3.1.5.nupkg.sha512",
         "xunit.runner.visualstudio.nuspec"
       ]
+    },
+    "BlackJackGame/1.0.0": {
+      "type": "project",
+      "path": "../BlackJackGame/BlackJackGame.csproj",
+      "msbuildProject": "../BlackJackGame/BlackJackGame.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "BlackJackGame >= 1.0.0",
       "C:\\Users\\thair\\Desktop\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame.csproj",
       "Microsoft.NET.Test.Sdk >= 18.4.0",
       "coverlet.collector >= 6.0.4",
@@ -1062,6 +1078,9 @@
           "projectReferences": {
             "C:\\Users\\thair\\Desktop\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame.csproj": {
               "projectPath": "C:\\Users\\thair\\Desktop\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame.csproj"
+            },
+            "C:\\Users\\thair\\Desktop\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame.csproj": {
+              "projectPath": "C:\\Users\\thair\\Desktop\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame\\BlackJackGame.csproj"
             }
           }
         }

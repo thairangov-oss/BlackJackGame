@@ -23,6 +23,7 @@
   <ItemGroup>
     <!-- Go up one folder from BlackJackGame.Tests to reach the real csproj -->
     <ProjectReference Include="..\BlackJackGame.csproj" />
+    <ProjectReference Include="..\BlackJackGame\BlackJackGame.csproj" />
   </ItemGroup>
 
 </Project>
