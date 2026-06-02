@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Review my project please
+
+using System;
 using System.Collections.Generic;
 
 namespace BlackjackGame
