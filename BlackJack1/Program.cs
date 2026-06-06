@@ -1,17 +1,26 @@
-﻿//Review my project please
-
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BlackjackGame
 {
+    /// <summary>
+    /// Represents the four suits in a standard deck of cards.
+    /// </summary>
     public enum Suit { Hearts, Diamonds, Clubs, Spades }
+
+    /// <summary>
+    /// Represents the ranks of cards in a standard deck.
+    /// </summary>
     public enum Rank
     {
         Two = 2, Three, Four, Five, Six, Seven, Eight, Nine, Ten,
         Jack, Queen, King, Ace
     }
 
+    /// <summary>
+    /// Represents a playing card with a suit and rank.
+    /// </summary>
     public class Card
     {
         public Suit Suit { get; }
@@ -20,6 +29,9 @@ namespace BlackjackGame
         public override string ToString() => $"{Rank} of {Suit}";
     }
 
+    /// <summary>
+    /// Provides helper methods for determining card values.
+    /// </summary>
     public static class CardValueHelper
     {
         public static int GetCardValue(Rank rank) =>
@@ -31,6 +43,20 @@ namespace BlackjackGame
             };
     }
 
+    /// <summary>
+    /// Contains constants used throughout the Blackjack game.
+    /// </summary>
+    public static class GameConstants
+    {
+        public const int DefaultBalance = 500;
+        public const int DefaultBet = 25;
+        public static readonly int[] AllowedBets = { 5, 10, 25, 50, 100, 250 };
+        public const double BlackjackPayoutMultiplier = 2.5;
+    }
+
+    /// <summary>
+    /// Represents a deck of playing cards.
+    /// </summary>
     public class Deck
     {
         public List<Card> Cards { get; private set; }
@@ -58,6 +84,9 @@ namespace BlackjackGame
         }
     }
 
+    /// <summary>
+    /// Represents a hand of cards held by a player or dealer.
+    /// </summary>
     public class Hand
     {
         public List<Card> Cards { get; } = new();
@@ -76,17 +105,39 @@ namespace BlackjackGame
         }
     }
 
+    /// <summary>
+    /// Encapsulates the result of a bet attempt.
+    /// </summary>
+    public class BetResult
+    {
+        public bool Success { get; }
+        public string ErrorMessage { get; }
+        public BetResult(bool success, string errorMessage = "")
+        {
+            Success = success;
+            ErrorMessage = errorMessage;
+        }
+    }
+
+    /// <summary>
+    /// Represents a player in the Blackjack game.
+    /// </summary>
     public class Player
     {
         public Hand Hand { get; } = new();
-        public int Balance { get; set; } = 500;
+        public int Balance { get; set; } = GameConstants.DefaultBalance;
         public int Bet { get; set; }
         public bool InsuranceTaken { get; private set; }
-        public void PlaceBet(int bet)
+
+        public BetResult PlaceBet(int bet)
         {
-            if (bet <= 0 || bet > Balance) throw new InvalidOperationException("Invalid bet.");
-            Bet = bet; Balance -= Bet;
+            if (bet <= 0 || bet > Balance)
+                return new BetResult(false, "Invalid bet amount.");
+            Bet = bet;
+            Balance -= Bet;
+            return new BetResult(true);
         }
+
         public void Hit(Deck deck) => Hand.AddCard(deck.Deal());
         public void Double(Deck deck)
         {
@@ -105,6 +156,9 @@ namespace BlackjackGame
         public void ResetInsurance() => InsuranceTaken = false;
     }
 
+    /// <summary>
+    /// Represents the overall Blackjack game engine.
+    /// </summary>
     public class Game
     {
         public Deck Deck { get; private set; }
@@ -115,27 +169,49 @@ namespace BlackjackGame
 
         public void ForceNewDeck(Deck deck) => Deck = deck;
 
-        public void Start(int bet = 25)
+        public void Start(int bet = GameConstants.DefaultBet)
         {
             IsRoundComplete = false;
             if (Deck == null || Deck.Cards.Count == 0) { Deck = new Deck(); Deck.Shuffle(); }
             Player.Hand.Cards.Clear(); Dealer = new Hand(); Player.ResetInsurance();
-            Player.PlaceBet(bet);
+
+            var betResult = Player.PlaceBet(bet);
+            if (!betResult.Success)
+            {
+                Console.WriteLine(betResult.ErrorMessage);
+                IsRoundComplete = true;
+                return;
+            }
+
             Player.Hand.AddCard(Deck.Deal()); Dealer.AddCard(Deck.Deal());
             Player.Hand.AddCard(Deck.Deal()); Dealer.AddCard(Deck.Deal());
+
             if (Player.Hand.CalculateScore() == 21)
             {
                 if (Dealer.CalculateScore() == 21) Player.Balance += Player.Bet;
-                else Player.Balance += (int)(Player.Bet * 2.5);
+                else Player.Balance += (int)(Player.Bet * GameConstants.BlackjackPayoutMultiplier);
                 IsRoundComplete = true;
             }
             else if (Dealer.CalculateScore() == 21)
             {
-                if (Player.InsuranceTaken) Player.Balance += Player.Bet * 2;
+                if (Player.InsuranceTaken)
+                {
+                    Player.Balance += Player.Bet; // insurance pays 2:1 on half bet
+                }
                 IsRoundComplete = true;
             }
         }
-        public void DealerTurn() { while (Dealer.CalculateScore() < 17) Dealer.AddCard(Deck.Deal()); }
+
+        private bool DealerShouldHit(Hand dealer)
+        {
+            int score = dealer.CalculateScore();
+            bool hasSoftAce = dealer.Cards.Any(c => c.Rank == Rank.Ace) &&
+                              dealer.Cards.Sum(c => CardValueHelper.GetCardValue(c.Rank)) == 17;
+            return score < 17 || (score == 17 && hasSoftAce);
+        }
+
+        public void DealerTurn() { while (DealerShouldHit(Dealer)) Dealer.AddCard(Deck.Deal()); }
+
         public void CompareHands()
         {
             int playerValue = Player.Hand.CalculateScore();
@@ -146,6 +222,33 @@ namespace BlackjackGame
         }
     }
 
+    /// <summary>
+    /// Provides console-based UI helper methods.
+    /// </summary>
+    public static class ConsoleUI
+    {
+        public static void ShowHand(string label, Hand hand)
+        {
+            Console.WriteLine($"{label}: {string.Join(", ", hand.Cards)} (Score: {hand.CalculateScore()})");
+        }
+
+        public static int PromptBet(Player player)
+        {
+            Console.WriteLine("Choose your bet (5, 10, 25, 50, 100, 250): ");
+            int bet;
+            while (!int.TryParse(Console.ReadLine(), out bet) ||
+                   !GameConstants.AllowedBets.Contains(bet) ||
+                   bet > player.Balance)
+            {
+                Console.WriteLine("Invalid bet. Try again.");
+            }
+            return bet;
+        }
+    }
+
+    /// <summary>
+    /// Entry point for the Blackjack console application.
+    /// </summary>
     public class Program
     {
         public static void Main()
@@ -158,20 +261,12 @@ namespace BlackjackGame
                 {
                     Console.WriteLine("\nYou are bust! Retry (R) or press any key to close.");
                     string choice = (Console.ReadLine() ?? "").ToUpper();
-                    if (choice == "R") { game.Player.Balance = 500; Console.WriteLine("Balance reset to 500."); }
+                    if (choice == "R") { game.Player.Balance = GameConstants.DefaultBalance; Console.WriteLine("Balance reset."); }
                     else return;
                 }
 
                 Console.WriteLine($"\nYour current balance: {game.Player.Balance}");
-                Console.WriteLine("Choose your bet (5, 10, 25, 50, 100, 250): ");
-                int bet;
-                while (!int.TryParse(Console.ReadLine(), out bet) ||
-                       (bet != 5 && bet != 10 && bet != 25 && bet != 50 && bet != 100 && bet != 250) ||
-                       bet > game.Player.Balance)
-                {
-                    Console.WriteLine("Invalid bet. Try again.");
-                }
-
+                int bet = ConsoleUI.PromptBet(game.Player);
                 game.Start(bet);
 
                 if (!game.IsRoundComplete)
@@ -179,7 +274,7 @@ namespace BlackjackGame
                     bool playerTurn = true;
                     while (playerTurn)
                     {
-                        Console.WriteLine($"\nPlayer: {string.Join(", ", game.Player.Hand.Cards)} (Score: {game.Player.Hand.CalculateScore()})");
+                        ConsoleUI.ShowHand("Player", game.Player.Hand);
                         Console.WriteLine($"Dealer: {game.Dealer.Cards[0]} and [Hidden]");
                         Console.WriteLine("\nChoose action: (H)it, (S)tand, (D)ouble, (I)nsurance");
                         string choice = (Console.ReadLine() ?? "").ToUpper();
@@ -190,37 +285,44 @@ namespace BlackjackGame
                                 game.Player.Hit(game.Deck);
                                 if (game.Player.Hand.CalculateScore() > 21)
                                 {
-                                    Console.WriteLine($"\nDealer: {string.Join(", ", game.Dealer.Cards)} (Score: {game.Dealer.CalculateScore()})");
-                                    Console.WriteLine($"Player: {string.Join(", ", game.Player.Hand.Cards)} (Score: {game.Player.Hand.CalculateScore()})");
-                                    Console.WriteLine($"Player busts with score {game.Player.Hand.CalculateScore()}!");
-                                    Console.WriteLine($"Dealer score: {game.Dealer.CalculateScore()}");
-                                    Console.WriteLine("Dealer wins!");
+                                    ConsoleUI.ShowHand("Player", game.Player.Hand);
+                                    ConsoleUI.ShowHand("Dealer", game.Dealer);
+                                    Console.WriteLine("Player busts! Dealer wins!");
                                     game.IsRoundComplete = true; playerTurn = false;
                                 }
                                 break;
-                            case "S": playerTurn = false; break;
+                            case "S":
+                                playerTurn = false;
+                                break;
                             case "D":
                                 game.Player.Double(game.Deck);
                                 if (game.Player.Hand.CalculateScore() > 21)
                                 {
-                                    Console.WriteLine($"\nDealer: {string.Join(", ", game.Dealer.Cards)} (Score: {game.Dealer.CalculateScore()})");
-                                    Console.WriteLine($"Player: {string.Join(", ", game.Player.Hand.Cards)} (Score: {game.Player.Hand.CalculateScore()})");
-                                    Console.WriteLine($"Player busts with score {game.Player.Hand.CalculateScore()}!");
-                                    Console.WriteLine($"Dealer score: {game.Dealer.CalculateScore()}");
-                                    Console.WriteLine("Dealer wins!");
+                                    ConsoleUI.ShowHand("Player", game.Player.Hand);
+                                    ConsoleUI.ShowHand("Dealer", game.Dealer);
+                                    Console.WriteLine("Player busts! Dealer wins!");
                                     game.IsRoundComplete = true;
                                 }
-                                playerTurn = false; break;
-                            case "I":
-                                if (game.Dealer.Cards[0].Rank == Rank.Ace) game.Player.TakeInsurance();
-                                else Console.WriteLine("Insurance only available if dealer shows Ace.");
+                                playerTurn = false;
                                 break;
-                            default: Console.WriteLine("Invalid choice."); break;
+                            case "I":
+                                if (game.Dealer.Cards[0].Rank == Rank.Ace)
+                                    game.Player.TakeInsurance();
+                                else
+                                    Console.WriteLine("Insurance only available if dealer shows Ace.");
+                                break;
+                            default:
+                                Console.WriteLine("Invalid choice.");
+                                break;
                         }
                     }
-                    if (!game.IsRoundComplete) { game.DealerTurn(); game.CompareHands(); }
-                }
 
+                    if (!game.IsRoundComplete)
+                    {
+                        game.DealerTurn();
+                        game.CompareHands();
+                    }
+                }
 
                 Console.WriteLine($"\nFinal Balance: {game.Player.Balance}");
                 Console.WriteLine("\nDo you want to play again? (Y/N)");
@@ -230,3 +332,4 @@ namespace BlackjackGame
         }
     }
 }
+
