@@ -287,8 +287,10 @@ namespace BlackjackGame
                                 {
                                     ConsoleUI.ShowHand("Player", game.Player.Hand);
                                     ConsoleUI.ShowHand("Dealer", game.Dealer);
-                                    Console.WriteLine("Player busts! Dealer wins!");
-                                    game.IsRoundComplete = true; playerTurn = false;
+                                    // 🔄 Restored narration for bust outcome
+                                    Console.WriteLine($"Player busts with {game.Player.Hand.CalculateScore()}. Dealer wins!");
+                                    game.IsRoundComplete = true;
+                                    playerTurn = false;
                                 }
                                 break;
                             case "S":
@@ -300,7 +302,8 @@ namespace BlackjackGame
                                 {
                                     ConsoleUI.ShowHand("Player", game.Player.Hand);
                                     ConsoleUI.ShowHand("Dealer", game.Dealer);
-                                    Console.WriteLine("Player busts! Dealer wins!");
+                                    // 🔄 Restored narration for bust outcome
+                                    Console.WriteLine($"Player busts with {game.Player.Hand.CalculateScore()}. Dealer wins!");
                                     game.IsRoundComplete = true;
                                 }
                                 playerTurn = false;
@@ -321,6 +324,34 @@ namespace BlackjackGame
                     {
                         game.DealerTurn();
                         game.CompareHands();
+
+                        // 🔄 Restored final narration block
+                        ConsoleUI.ShowHand("Player", game.Player.Hand);
+                        ConsoleUI.ShowHand("Dealer", game.Dealer);
+
+                        int playerScore = game.Player.Hand.CalculateScore();
+                        int dealerScore = game.Dealer.CalculateScore();
+
+                        if (playerScore > 21)
+                        {
+                            Console.WriteLine($"Player busts with {playerScore}. Dealer wins!");
+                        }
+                        else if (dealerScore > 21)
+                        {
+                            Console.WriteLine($"Dealer busts with {dealerScore}. Player wins!");
+                        }
+                        else if (playerScore > dealerScore)
+                        {
+                            Console.WriteLine($"Player wins {playerScore} vs {dealerScore}!");
+                        }
+                        else if (playerScore < dealerScore)
+                        {
+                            Console.WriteLine($"Dealer wins {dealerScore} vs {playerScore}!");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Push: both scored {playerScore}.");
+                        }
                     }
                 }
 
