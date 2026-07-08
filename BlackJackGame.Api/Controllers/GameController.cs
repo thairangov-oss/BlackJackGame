@@ -8,6 +8,10 @@ namespace BlackJackGame.Api.Controllers
     [Route("api/game")]
     public class GameController : ControllerBase
     {
+        // -------------------
+        // Phase 1 Endpoints
+        // -------------------
+
         [HttpPost("start")]
         public IActionResult Start([FromBody] int bet)
         {
@@ -39,6 +43,57 @@ namespace BlackJackGame.Api.Controllers
                 IsRoundComplete = game.IsRoundComplete
             });
         }
+
+        // -------------------
+        // Phase 2 Endpoints
+        // -------------------
+
+        [HttpPost("{gameId}/action")]
+        public IActionResult PerformAction(Guid gameId, [FromBody] ActionRequest request)
+        {
+            var game = GameStore.GetGame(gameId);
+            if (game == null) return NotFound();
+
+            try
+            {
+                switch (request.Action.ToLower())
+                {
+                    case "hit":
+                        game.Hit();
+                        break;
+                    case "stand":
+                        game.Stand();
+                        break;
+                    case "double":
+                        game.Double();
+                        break;
+                    case "insurance":
+                        game.TakeInsurance();
+                        break;
+                    default:
+                        return BadRequest(new { message = "Invalid action" });
+                }
+
+                return Ok(new
+                {
+                    PlayerBalance = game.Player.Balance,
+                    PlayerHand = game.Player.Hand.Cards.Select(c => c.ToString()),
+                    DealerHand = game.Dealer.Cards.Select(c => c.ToString()),
+                    IsRoundComplete = game.IsRoundComplete
+                });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+    }
+
+    // DTO for Phase 2
+    public class ActionRequest
+    {
+        public string Action { get; set; }
     }
 }
+
 
