@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using BlackJack1;
+using BlackJackCore.Core;
 using BlackJackGame.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 

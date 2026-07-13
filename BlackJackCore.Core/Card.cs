@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BlackJack1
+namespace BlackJackCore.Core
 {
     public class Card
     {

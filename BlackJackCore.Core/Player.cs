@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BlackJack1
+namespace BlackJackCore.Core
 {
     public class Player
     {
@@ -8,6 +8,7 @@ namespace BlackJack1
         public int Balance { get; set; } = 500;
         public int Bet { get; private set; } = 0;
         public bool InsuranceTaken { get; private set; } = false;
+        public int InsuranceAmount { get; private set; } = 0;
 
         public void PlaceBet(int amount)
         {
@@ -28,8 +29,13 @@ namespace BlackJack1
 
         public void TakeInsurance()
         {
+            if (Bet <= 0) throw new InvalidOperationException("No active bet for insurance");
+            int insurance = Bet / 2;
+            if (insurance <= 0) throw new InvalidOperationException("Insurance amount must be positive");
+            if (Balance < insurance) throw new InvalidOperationException("Insufficient balance to take insurance");
+            Balance -= insurance;
             InsuranceTaken = true;
-            // Minimal implementation: flag only
+            InsuranceAmount = insurance;
         }
 
         public int CalculateScore() => Hand.CalculateScore();
@@ -39,6 +45,7 @@ namespace BlackJack1
             Hand.Cards.Clear();
             Bet = 0;
             InsuranceTaken = false;
+            InsuranceAmount = 0;
         }
     }
 }

@@ -1,6 +1,5 @@
-﻿using BlackjackGame;
+﻿using BlackJackCore.Core;
 using System;
-using System.Numerics;
 using Xunit;
 
 namespace BlackjackGameTests
@@ -33,7 +32,7 @@ namespace BlackjackGameTests
             hand.AddCard(new Card(Suit.Diamonds, Rank.Nine));
 
             int score = hand.CalculateScore();
-            Assert.Equal(20, score); 
+            Assert.Equal(20, score);
         }
 
         [Fact]
@@ -67,10 +66,12 @@ namespace BlackjackGameTests
         {
             var player = new Player();
             player.PlaceBet(100);
+            // TakeInsurance now deducts Bet/2 from balance
+            // initial balance 500 -> after bet 400 -> after insurance 350
             player.TakeInsurance();
 
             Assert.True(player.InsuranceTaken);
-            Assert.Equal(400, player.Balance);
+            Assert.Equal(350, player.Balance);
         }
 
         [Fact]
@@ -88,7 +89,7 @@ namespace BlackjackGameTests
             game.Start(50);
 
             Assert.True(game.IsRoundComplete);
-            Assert.True(game.Player.Balance > 500); 
+            Assert.True(game.Player.Balance > 500);
         }
 
         [Fact]
@@ -115,7 +116,7 @@ namespace BlackjackGameTests
             var game = new Game();
             var deck = new Deck();
             deck.Cards.Clear();
-            
+
             deck.Cards.Add(new Card(Suit.Hearts, Rank.King));
             deck.Cards.Add(new Card(Suit.Spades, Rank.Nine));
             deck.Cards.Add(new Card(Suit.Clubs, Rank.Queen));
@@ -129,4 +130,3 @@ namespace BlackjackGameTests
         }
     }
 }
-

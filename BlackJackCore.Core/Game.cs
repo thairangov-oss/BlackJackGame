@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BlackJack1
+namespace BlackJackCore.Core
 {
     public class Game
     {
@@ -79,6 +79,9 @@ namespace BlackJack1
         public void Double()
         {
             if (IsRoundComplete) throw new InvalidOperationException("Round already complete");
+            // Only allow doubling on initial two-card hand (player's first decision)
+            if (Player.Hand.Cards.Count != 2)
+                throw new InvalidOperationException("Double is only allowed on the initial two-card hand");
             Player.Double(Deck);
             if (Player.CalculateScore() > 21)
             {
@@ -94,6 +97,10 @@ namespace BlackJack1
         public void TakeInsurance()
         {
             if (IsRoundComplete) throw new InvalidOperationException("Round already complete");
+            // Insurance only allowed when dealer's visible card is an Ace
+            var visible = Dealer.Hand.Cards.Count > 0 ? Dealer.Hand.Cards[0] : null;
+            if (visible == null || visible.Rank != Rank.Ace)
+                throw new InvalidOperationException("Insurance is only allowed when dealer's visible card is an Ace");
             Player.TakeInsurance();
         }
 
@@ -110,6 +117,28 @@ namespace BlackJack1
             int playerScore = Player.CalculateScore();
             int dealerScore = Dealer.CalculateScore();
             int bet = Player.Bet;
+
+            // Handle dealer blackjack (and insurance) first
+            if (Dealer.Hand.IsBlackjack())
+            {
+                if (Player.InsuranceTaken)
+                {
+                    // Insurance pays 2:1 on the insurance amount
+                    Player.Balance += Player.InsuranceAmount * 2;
+                }
+
+                if (Player.Hand.IsBlackjack())
+                {
+                    // Push - return bet
+                    Player.Balance += bet;
+                    OutcomeMessage = "Push.";
+                    return;
+                }
+
+                // Dealer blackjack and player doesn't have blackjack -> dealer wins
+                OutcomeMessage = "Dealer has blackjack. Dealer wins.";
+                return;
+            }
 
             if (playerScore > 21)
             {

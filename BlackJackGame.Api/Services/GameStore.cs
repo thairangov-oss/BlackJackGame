@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using BlackJack1;
+using BlackJackCore.Core;
 
 namespace BlackJackGame.Api.Services
 {
