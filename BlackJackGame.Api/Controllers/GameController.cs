@@ -1,4 +1,6 @@
-﻿using BlackjackGame;
+﻿using System;
+using System.Linq;
+using BlackJack1;
 using BlackJackGame.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,8 +26,12 @@ namespace BlackJackGame.Api.Controllers
                 GameId = id,
                 PlayerBalance = game.Player.Balance,
                 PlayerHand = game.Player.Hand.Cards.Select(c => c.ToString()),
-                DealerHand = game.Dealer.Cards.Select(c => c.ToString()),
-                IsRoundComplete = game.IsRoundComplete
+                DealerHand = game.Dealer.Hand.Cards.Select(c => c.ToString()),
+                // Expose visible dealer card separately for CLI
+                DealerVisibleCard = game.Dealer.Hand.Cards.FirstOrDefault()?.ToString(),
+                PlayerScore = game.Player.CalculateScore(),
+                IsRoundComplete = game.IsRoundComplete,
+                OutcomeMessage = game.OutcomeMessage
             });
         }
 
@@ -39,7 +45,7 @@ namespace BlackJackGame.Api.Controllers
             {
                 PlayerBalance = game.Player.Balance,
                 PlayerHand = game.Player.Hand.Cards.Select(c => c.ToString()),
-                DealerHand = game.Dealer.Cards.Select(c => c.ToString()),
+                DealerHand = game.Dealer.Hand.Cards.Select(c => c.ToString()),
                 IsRoundComplete = game.IsRoundComplete
             });
         }
@@ -78,8 +84,11 @@ namespace BlackJackGame.Api.Controllers
                 {
                     PlayerBalance = game.Player.Balance,
                     PlayerHand = game.Player.Hand.Cards.Select(c => c.ToString()),
-                    DealerHand = game.Dealer.Cards.Select(c => c.ToString()),
-                    IsRoundComplete = game.IsRoundComplete
+                    DealerHand = game.Dealer.Hand.Cards.Select(c => c.ToString()),
+                    IsRoundComplete = game.IsRoundComplete,
+                    OutcomeMessage = game.OutcomeMessage,
+                    PlayerScore = game.Player.CalculateScore(),
+                    DealerScore = game.Dealer.CalculateScore()
                 });
             }
             catch (InvalidOperationException ex)
