@@ -21,3 +21,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+// Add this so WebApplicationFactory<Program> can find the entry point
+public partial class Program { }
