@@ -1,16 +1,23 @@
-﻿using System.Net.Http;
+﻿using System.Net;
+using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
 
 namespace BlackJackGame.Api.Tests
 {
-    public class GameApiTests : IClassFixture<WebApplicationFactory<Program>>
+    public class BlackJackApiTests : IClassFixture<WebApplicationFactory<Program>>
     {
         private readonly HttpClient _client;
-        public GameApiTests(WebApplicationFactory<Program> factory) => _client = factory.CreateClient();
+        public BlackJackApiTests(WebApplicationFactory<Program> factory) => _client = factory.CreateClient();
+
+        [Fact]
+        public async Task GetRoot_ReturnsSuccess()
+        {
+            var response = await _client.GetAsync("/");
+            Assert.True(response.IsSuccessStatusCode);
+        }
 
         [Fact]
         public async Task StartGame_ReturnsInitialState()

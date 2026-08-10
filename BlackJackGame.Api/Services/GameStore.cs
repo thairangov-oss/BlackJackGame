@@ -5,24 +5,51 @@ using BlackJackCore.Core;
 
 namespace BlackJackGame.Api.Services
 {
-    public static class GameStore
+    public sealed class GameStore
     {
-        private static readonly ConcurrentDictionary<Guid, Game> _games = new();
+        private readonly ConcurrentDictionary<Guid, (Game game, DateTime lastUpdated)> _games
+            = new();
 
-        public static Guid AddGame(Game game)
+        public Guid Create(Game game)
         {
-            if (game == null) throw new ArgumentNullException(nameof(game));
             var id = Guid.NewGuid();
-            _games.TryAdd(id, game);
+            _games[id] = (game, DateTime.UtcNow);
             return id;
         }
 
-        public static Game? GetGame(Guid id) =>
-            _games.TryGetValue(id, out var game) ? game : null;
+        public bool TryGet(Guid id, out Game? game)
+        {
+            if (_games.TryGetValue(id, out var entry))
+            {
+                game = entry.game;
+                // update last access time
+                _games[id] = (entry.game, DateTime.UtcNow);
+                return true;
+            }
 
-        public static bool TryRemove(Guid id, out Game? removed) =>
-            _games.TryRemove(id, out removed);
+            game = null;
+            return false;
+        }
 
-        public static IEnumerable<KeyValuePair<Guid, Game>> GetAllGamesSnapshot() => _games.ToArray();
+        public bool Remove(Guid id) => _games.TryRemove(id, out _);
+
+        public int CleanupOldGames(TimeSpan maxAge)
+        {
+            var cutoff = DateTime.UtcNow - maxAge;
+            var toRemove = new List<Guid>();
+
+            foreach (var kvp in _games)
+            {
+                var id = kvp.Key;
+                var (game, lastUpdated) = kvp.Value;
+                if (lastUpdated < cutoff || (game != null && game.IsRoundComplete))
+                {
+                    toRemove.Add(id);
+                }
+            }
+
+            foreach (var id in toRemove) _games.TryRemove(id, out _);
+            return toRemove.Count;
+        }
     }
 }
