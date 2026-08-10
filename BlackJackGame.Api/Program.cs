@@ -24,5 +24,5 @@ app.MapControllers();
 
 app.Run();
 
-// Add this so WebApplicationFactory<Program> can find the entry point
+// Add this so WebApplicationFactory<Program> can find the entry point in integration tests
 public partial class Program { }

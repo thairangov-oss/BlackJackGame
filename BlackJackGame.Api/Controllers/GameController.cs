@@ -41,19 +41,28 @@ namespace BlackJackGame.Api.Controllers
         [HttpPost("{id:guid}/action")]
         public IActionResult Action(Guid id, [FromBody] ActionRequest req)
         {
-            if (!_store.TryGet(id, out var game) || game == null) return NotFound();
+            // Existence check early to return 404 without throwing inside ExecuteWithLock
+            if (!_store.TryGet(id, out var _)) return NotFound();
 
+            Game game;
             try
             {
-                var action = (req?.Action ?? string.Empty).Trim().ToLowerInvariant();
-                switch (action)
+                game = _store.ExecuteWithLock(id, g =>
                 {
-                    case "hit": game.Hit(); break;
-                    case "stand": game.Stand(); break;
-                    case "double": game.Double(); break;
-                    case "insurance": game.TakeInsurance(); break;
-                    default: return BadRequest("Unknown action");
-                }
+                    var action = (req?.Action ?? string.Empty).Trim().ToLowerInvariant();
+                    switch (action)
+                    {
+                        case "hit": g.Hit(); break;
+                        case "stand": g.Stand(); break;
+                        case "double": g.Double(); break;
+                        case "insurance": g.TakeInsurance(); break;
+                        default: throw new InvalidOperationException("Unknown action");
+                    }
+                });
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
             }
             catch (InvalidOperationException ioe)
             {
