@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace BlackJack1
 {
-    public class Program
-    {
+    public partial class Program { }
+
         private static HttpClient _client = new HttpClient();
 
         public static async Task Main(string[] args)
@@ -291,5 +291,6 @@ namespace BlackJack1
         }
     }
 }
+
 
 
