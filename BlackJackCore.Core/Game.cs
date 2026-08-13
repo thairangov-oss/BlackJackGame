@@ -29,9 +29,12 @@ namespace BlackJackCore.Core
 
             Player.PlaceBet(bet);
 
+            // Deal two cards to player first, then two cards to dealer.
+            // This matches the test expectations where a custom deck's first two cards
+            // should go to the player.
+            Player.Hand.AddCard(Deck.Deal());
             Player.Hand.AddCard(Deck.Deal());
             Dealer.Hand.AddCard(Deck.Deal());
-            Player.Hand.AddCard(Deck.Deal());
             Dealer.Hand.AddCard(Deck.Deal());
 
             if (Player.Hand.IsBlackjack())

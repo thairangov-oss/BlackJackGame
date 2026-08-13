@@ -22,6 +22,9 @@ if (app.Environment.IsDevelopment())
 
 app.MapControllers();
 
+// Minimal health root so probing '/' returns 200 instead of 404
+app.MapGet("/", () => Results.Ok(new { Status = "OK", Service = "BlackJack API" }));
+
 app.Run();
 
 // Add this so WebApplicationFactory<Program> can find the entry point in integration tests
