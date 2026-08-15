@@ -87,7 +87,7 @@ BlackJackGame/
 │   │   └── GameController.cs     # Handles game start and player actions
 │   ├── Models/                   # API request/response models (if present)
 │   └── Services/                 # API services (if present)
-# (No Startup.cs present in repo)
+
 
 ├── BlackJackGame.Core/           # Core library (renamed from BlackJackCore.Core)
 │   ├── Card.cs                   # Represents a playing card
@@ -98,7 +98,7 @@ BlackJackGame/
 
 ├── BlackJackGame.Tests/          # xUnit test project
 │   └── UnitTest1.cs              # Consolidated tests for card, deck, and game
-# (No HandComparisonTests.cs present)
+
 
 ├── .github/workflows/            # GitHub Actions CI/CD pipelines
 │   └── BuildAction.yml           # Automated build and test workflow
