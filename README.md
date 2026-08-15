@@ -4,7 +4,7 @@
 ![NewFeature-Branch Build Status](https://github.com/thairangov-oss/BlackJackGame/actions/workflows/BuildAction.yml/badge.svg?branch=NewFeature-Branch)
 
 ## Overview
-BlackJackGame is a C#/.NET application that simulates the classic Blackjack card game while showcasing principles of clean software architecture, API-driven design, and rigorous testing practices.  
+BlackJackGame is a C#/.NET application that simulates the classic Blackjack card game while showcasing principles of clean software architecture, API-driven design, and rigorous testing practices. [...]
 It includes a CLI client, a dedicated BlackJackCore library, a Web API, and comprehensive unit tests with xUnit. GitHub Actions is used for continuous integration and delivery.
 
 ## Features
@@ -48,7 +48,7 @@ dotnet run
 cd BlackJackGame.Tests
 dotnet test
 
-License
+## License
 MIT License
 
 ---
@@ -62,20 +62,6 @@ MIT License
 - The **Contributing** section provides clear steps for new contributors to fork, branch, test, and submit PRs.
 
 ---
-
-- The **Features** section now reflects:
-  - CLI client communicating with a remote API
-  - BlackJackCore library with reusable models (`Card`, `Deck`, `Hand`, `Player`, `Game`)
-  - JSON serialization/deserialization and robust API error handling
-  - Expanded testing scenarios (scoring, betting, blackjack-on-deal, doubling, insurance, dealer logic, hand comparisons)
-  - Dedicated **API.Tests** project
-- GitHub Actions pipelines are explicitly tied to both `main` and `NewFeature-Branch` for CI/CD.
-- Clean separation of concerns (CLI, API, Core, Tests) highlights maintainability and SOLID principles.
-- Strong emphasis on writing reliable, maintainable code and catching issues early through testing.
-
----
-
-## Project Structure
 
 ## Project Structure
 
@@ -109,9 +95,3 @@ BlackJackGame/
 └── README.md                     # Project documentation
 
 ```
-
-
-
-
-
-
