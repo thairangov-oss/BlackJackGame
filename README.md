@@ -77,33 +77,37 @@ MIT License
 
 ## Project Structure
 
+## Project Structure
+
 ```plaintext
 BlackJackGame/
-├── BlackJackGame.CLI/            # Console client (renamed from BlackJack1)
-│   ├── Program.cs                # Entry point for the CLI
-│   ├── Services/                 # CLI helpers (if present)
-│   └── Models/                   # CLI-specific models (if present)
+├── BlackJackGame.CLI/            # Console client for playing Blackjack via command line
+│   ├── Program.cs                # Entry point for the CLI application
+│   ├── Services/                 # Helper classes for CLI functionality
+│   └── Models/                   # CLI-specific models used for input/output handling
 
-├── BlackJackGame.Api/            # Web API
+├── BlackJackGame.Api/            # Web API exposing game endpoints
 │   ├── Controllers/              # API endpoints
-│   │   └── GameController.cs     # Handles game start and player actions
-│   ├── Models/                   # API request/response models (if present)
-│   └── Services/                 # API services (if present)
+│   │   └── GameController.cs     # Handles game start and player actions (Hit, Stand, Double, Insurance)
+│   ├── Models/                   # Request/response models for API communication
+│   └── Services/                 # Business logic services for API operations
+# (No Startup.cs present in repo)
 
-├── BlackJackGame.Core/           # Core library (renamed from BlackJackCore.Core)
+├── BlackJackGame.Core/           # Core library containing reusable game logic and models
 │   ├── Card.cs                   # Represents a playing card
-│   ├── Deck.cs                   # Deck management logic
+│   ├── Deck.cs                   # Deck management logic (shuffle, draw)
 │   ├── Hand.cs                   # Player/dealer hand logic
-│   ├── Player.cs                 # Player model
-│   └── Game.cs                   # Core game rules and flow
+│   ├── Player.cs                 # Player model with betting and scoring
+│   └── Game.cs                   # Core game rules and flow (rounds, dealer behavior, win/loss tracking)
 
 ├── BlackJackGame.Tests/          # xUnit test project
-│   └── UnitTest1.cs              # Consolidated tests for card, deck, and game
+│   └── UnitTest1.cs              # Consolidated tests for card, deck, and game behavior
 
 ├── .github/workflows/            # GitHub Actions CI/CD pipelines
-│   └── BuildAction.yml           # Automated build and test workflow
+│   └── BuildAction.yml           # Automated build and test workflow for main and feature branches
 
 └── README.md                     # Project documentation
+
 ```
 
 
