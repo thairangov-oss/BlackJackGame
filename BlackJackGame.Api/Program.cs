@@ -1,12 +1,15 @@
-using BlackJackGame.Api.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using BlackJackGame.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Register GameStore as singleton
 builder.Services.AddSingleton<GameStore>();
+
+// Add GameCleanupHostedService as a hosted service
+builder.Services.AddHostedService<GameCleanupHostedService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
