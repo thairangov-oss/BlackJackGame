@@ -83,8 +83,4 @@ GameStore --> Game : stores
 GameCleanupHostedService --> GameStore : cleanup
 ```
 
-### Architecture Notes
 
-- **GameStore**: Registered as a singleton in dependency injection to manage active game sessions in memory.
-- **Concurrency**: ExecuteWithLock acquires per-game lock instances to prevent race conditions during concurrent player actions.
-- **Background Processing**: GameCleanupHostedService runs as a periodic background service to invoke CleanupOldGames(...) and drop inactive sessions.
